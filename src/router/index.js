@@ -4,6 +4,7 @@ import About from '../views/About'
 import Orders from '../views/Orders'
 import Login from '../views/Login'
 import Register from '../views/Register'
+import RestaurantApplication from '../views/RestaurantApplication'
 
 const routes = [
     {
@@ -30,8 +31,16 @@ const routes = [
         path: '/register',
         name: 'Register',
         component: Register
+        
+    },
+    {
+        path: '/register/application',
+        name: 'RestaurantApplication',
+        component: RestaurantApplication
     }
+        
 ]
+
 
 const router = createRouter({
     history: createWebHistory(
