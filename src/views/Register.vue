@@ -64,7 +64,7 @@ export default{
               const data = await res.json()
               if(res.status === 200){
                     this.notifications.push({id: 1001, message: "Successfully Registered!",type: 'success'})
-                    this.$router.push('/')
+                    this.$router.push('/register/application')
               }else{
                     this.notifications.push({id: 1001, message: data.message,type: 'dismissible'})
                 }
