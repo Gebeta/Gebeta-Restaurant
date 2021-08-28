@@ -1,16 +1,18 @@
 import { createStore } from "vuex";
-import createPersistedState from 'vuex-persistedstate'
-import * as Cookies from 'js-cookie'
 
 const store = createStore({
     state:{
-        token: '',
         update: false,
         showAddItem: false
     },
     mutations: {
+        setId(){
+            const id = arguments[1]
+            localStorage.setItem('id',JSON.stringify(id))
+        },
         setToken(){
-            this.token = arguments[1]
+            const token = arguments[1]
+            localStorage.setItem('token',JSON.stringify(token))
         },
         toggleItem(){
             this.showAddItem = !this.showAddItem
@@ -20,14 +22,7 @@ const store = createStore({
             this.showAddItem = true
             this.update = true
         }
-    },
-    plugins: [
-        createPersistedState({
-          getState: (key) => Cookies.get(key),
-          setState: (key, state) => Cookies.set(key, state, { expires: 7, secure: true }),
-          removeState: (key) => Cookies.remove(key),
-        })
-    ]  
+    }
 });
 
 export default store;

@@ -28,12 +28,12 @@ export default {
     },
     methods:{
         async fetchOrders(){
-            const res = await fetch('api/order')
+            const res = await fetch('api/order',{headers: this.getHeader()})
             const data = await res.json()
-            return data.docs
+            return data
         },
         async fetchOrder(id){
-            const res = await fetch(`api/order/${id}`)
+            const res = await fetch(`api/order/${id}`,{headers: this.getHeader()})
             const data = await res.json()
             return data
         },
@@ -43,13 +43,17 @@ export default {
 
             const res = await fetch(`api/order/${id}`,{
                 method: 'PUT',
-                headers: {'Content-type': 'application/json'},
+                headers: this.getHeader(),
                 body: JSON.stringify(updOrder)
             })
 
             const data = await res.json()
             if(data && data.isAcitive){this.addNotification({id: data._id,message: data._id + ' Accepted', type: 'success'})}
             this.orders = this.orders.map((order)  => order._id === id ? {...order, isAcitive: data.isAcitive} : order)
+        },
+        getHeader(){
+            const token = JSON.parse(localStorage.getItem('token'))
+            return {'Content-type': 'application/json', 'Authorization': ' Bearer ' + token}
         },
         addNotification(notif){
             this.notifications.push(notif)

@@ -46,8 +46,8 @@ export default {
 
           const data = await res.json()
           if(res.status === 200){
-                console.log('token --- '+data.token)
                 store.commit('setToken', arguments[1] = data.token)
+                store.commit('setId', arguments[1] = data._id)
                 this.$router.push('menu')
             }else{
                 this.notifications.push({id: 1001, message: data.message,type: 'dismissible'})

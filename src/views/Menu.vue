@@ -163,9 +163,10 @@ export default{
             }
         },
         async fetchItems(){
-            const res = await fetch('api/items',{headers: this.getHeader()})
+            const id = JSON.parse(localStorage.getItem('id'))
+            const res = await fetch(`api/items/menu/${id}`,{headers: this.getHeader()})
             const data = await res.json()
-            return data.docs
+            return data
         },
         async fetchItem(id){
             const res = await fetch(`api/items/${id}`,{headers: this.getHeader()})
@@ -177,8 +178,8 @@ export default{
             this.delId = id
         },
         getHeader(){
-            //, {'Authorization': ' Bearer ' + store.token}
-            return {'Content-type': 'application/json'}
+            const token = JSON.parse(localStorage.getItem('token'))
+            return {'Content-type': 'application/json', 'Authorization': ' Bearer ' + token}
         },
         addNotification(notif){
             this.notifications.push(notif)
@@ -188,6 +189,7 @@ export default{
         },
         toggleItem(){
             store.commit('toggleItem')
+            this.update = false
             this.showAddItem = store.showAddItem
         }
     },

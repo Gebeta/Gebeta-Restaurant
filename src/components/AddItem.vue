@@ -28,7 +28,7 @@
 </template>
 
 <script>
-
+import store from '../store'
 export default{
     name:'AddItem',
     props: {
@@ -81,7 +81,8 @@ export default{
                 description: this.description,
                 price: this.price,
                 isServed: this.isServed,
-                imgLocation: img
+                imgLocation: img,
+                restaurandId: store.id
             }
         },
         checkImages(){
