@@ -6,7 +6,8 @@
                 <input type="text" v-model="name" placeholder="Restaurant name" >
             </div>
             <div class="mb-3">
-                <input type="number" v-model="phone" placeholder="Phone">
+                <input type="number" v-model="phone" placeholder="+251*********">
+
             </div>
             <div class="mb">
                 <p>Restaurant Location </p>

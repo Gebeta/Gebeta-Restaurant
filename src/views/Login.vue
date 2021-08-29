@@ -3,8 +3,9 @@
   <div class="container">
       <img src="../assets/login.png" />
       <form @submit.prevent="login">
-          <div class="mb-3 l_left">
-              <input type="email" v-model="email" placeholder="Email">
+          <div class="mb-3">
+              <div class="l_left"><input type="email" v-model="email" placeholder="Email"></div>
+              <div class="l_right"><span class="icon"><i class="fa fa-envelope"></i></span></div>
           </div>
           <div class="mb-3">     
               <div class="l_left">   
@@ -12,8 +13,11 @@
                 <input v-else type="password" v-model="password" placeholder="Enter Password">
                 </div><div class="l_right">
                     <span class="icon" @click="toggleShow">
-                    <i :class="{ 'fa fa-eye-slash': showPassword, 'fa fa-eye': !showPassword }"></i>
+                     
+                    <i id="eye" :class="{ 'fa fa-eye-slash': showPassword, 'fa fa-eye': !showPassword }"></i>
+                     <i id="lock" class="fa fa-lock"></i>
                     </span>
+  
                     </div>
           </div>    
           <button type="submit" id="login" class="btn">Login</button>
@@ -94,11 +98,23 @@ export default {
 .l_left {
 	width: 85%;
 	float: left;
+  margin-top:5px;
 }
 
 .l_right {
 	width: 15%;
 	float: right;
   margin-top:5px;
+}
+#eye{
+  font-size:1.2rem;
+  margin-right:5px;
+
+}
+#lock{
+  margin-right:15px;
+  font-size:2rem;
+    margin-top:5px;
+
 }
 </style>
