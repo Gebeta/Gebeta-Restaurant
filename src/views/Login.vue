@@ -3,13 +3,20 @@
   <div class="container">
       <img src="../assets/login.png" />
       <form @submit.prevent="login">
-          <div class="mb-3">
+          <div class="mb-3 l_left">
               <input type="email" v-model="email" placeholder="Email">
           </div>
           <div class="mb-3">     
-              <input type="password" v-model="password" placeholder="Enter Password">
+              <div class="l_left">   
+                <input v-if="showPassword" type="text" v-model="password" placeholder="Enter Password">
+                <input v-else type="password" v-model="password" placeholder="Enter Password">
+                </div><div class="l_right">
+                    <span class="icon" @click="toggleShow">
+                    <i :class="{ 'fa fa-eye-slash': showPassword, 'fa fa-eye': !showPassword }"></i>
+                    </span>
+                    </div>
           </div>    
-          <button type="submit" class="btn">Login</button>
+          <button type="submit" id="login" class="btn">Login</button>
           <div class="mb-3"><br/>
               <label>Don't have account <router-link to='/register'>Register here</router-link></label>
           </div>
@@ -29,12 +36,18 @@ export default {
     return{
       email:'',
       password:'',
-      notifications: []
+      notifications: [],
+      showPassword:false
     }
   },
   components:{
     NotificationList
   },
+  computed: {
+    buttonLabel() {
+      return (this.showPassword) ? "Hide" : "Show";
+    }
+    },
   methods:{
         async login(){
           const obj = { email:this.email, password:this.password};
@@ -55,7 +68,10 @@ export default {
         },
         removeNotification(id){
             this.notifications = this.notifications.filter((notif) => notif.id !== id)
-        }
+        },
+        toggleShow() {
+      this.showPassword = !this.showPassword;
+    },
     }
 }
 </script>
@@ -72,5 +88,17 @@ export default {
     height: 100%;
     width: 100%;
 }
+#login{
+  margin-top:5%;
+}
+.l_left {
+	width: 85%;
+	float: left;
+}
 
+.l_right {
+	width: 15%;
+	float: right;
+  margin-top:5px;
+}
 </style>

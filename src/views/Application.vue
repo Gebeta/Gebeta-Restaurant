@@ -19,13 +19,28 @@
                 <input type="email" v-model="email" placeholder="Email">
             </div>
             <div class="mb-3">     
-                <input type="password" v-model="password" placeholder="Password">
+               <div class="login_left">   
+                <input v-if="showPassword" type="text" v-model="password" placeholder="Password">
+                <input v-else type="password" v-model="password" placeholder="Password">
+                </div><div class="login_right">
+                    <span class="icon" @click="toggleShow">
+                    <i :class="{ 'fa fa-eye-slash': showPassword, 'fa fa-eye': !showPassword }"></i>
+                    </span>
+                    </div>
             </div>
             <div class="mb-3">         
-                <input type="password" v-model="confirm_password" placeholder="confirm Password">
-            </div>      
-            <button type="submit">Register</button>
+                <div class="login_left">
+            <input v-if="showPassword" type="text" class="input" v-model="confirm_password" placeholder="Confirm Password"/>
+           <input v-else type="password" class="input" v-model="confirm_password" placeholder="Confirm Password">
+           </div><div class="login_right"><span class="icon" @click="toggleShow">
+            <i :class="{ 'fa fa-eye-slash': showPassword, 'fa fa-eye': !showPassword }"></i>
+          </span>
+            </div> 
+            </div>
+            <div class="mb-3"> 
+            <button id="register" type="submit">Register</button></div>
             <div class="mb-3"><br/>
+            
                 <label>Have account <router-link to='/'>Login here</router-link></label>
             </div>
         </form>
@@ -51,11 +66,17 @@ export default {
         email: '',
         password: '',
         confirm_password: '',
-        notifications: []
+        notifications: [],
+        showPassword:false
       }
     },
     components:{
       NotificationList
+    },
+    computed: {
+    buttonLabel() {
+      return (this.showPassword) ? "Hide" : "Show";
+    }
     },
     methods: {
         async Register(){
@@ -125,12 +146,15 @@ export default {
         removeNotification(id){
             this.notifications = this.notifications.filter((notif) => notif.id !== id)
         },
+        toggleShow() {
+      this.showPassword = !this.showPassword;
+    },
     } 
 }
 </script>
 <style scoped>
 .container{
-    height:520px;
+    height:550px;
 }
 .file{
   border: none;
@@ -153,5 +177,8 @@ h3{
 }
 hr{
   margin-bottom: 2ex;
+}
+#register{
+  margin-top:5%;
 }
 </style>
